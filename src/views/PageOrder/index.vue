@@ -24,6 +24,10 @@
               <p class="title">{{ $t('h.o005') }}</p>
               <p class="money">{{ website.supervisorName }} {{ item.commission }}</p>
             </div>
+            <div class="hr"/>
+            <div v-if="item.orderStatus===0" class="task-money" style="text-align: center">
+              <van-button @click="toTask(item)" type="primary" color="#745DDD" size="small" round>{{ $t('h.h011') }}</van-button>
+            </div>
           </div>
         </div>
       </van-tab>
@@ -47,6 +51,10 @@
             <div class="task-money">
               <p class="title">{{ $t('h.o005') }}</p>
               <p class="money">{{ website.supervisorName }} {{ item.commission }}</p>
+            </div>
+            <div class="hr"/>
+            <div class="task-money" style="text-align: center">
+              <van-button @click="toTask(item)" type="primary" color="#745DDD" size="small" round>{{ $t('h.h011') }}</van-button>
             </div>
           </div>
         </div>
@@ -84,7 +92,7 @@
 import Header from "@/components/Header/index.vue";
 import {bookingList} from "@/api/apiFox";
 import {decrypt} from "@/utils/AES";
-import {getItem} from "@/utils/auth";
+import {getItem, setItem} from "@/utils/auth";
 import {Toast} from "vant";
 export default {
   components:{Header},
@@ -106,6 +114,24 @@ export default {
       }).catch(err=>{
         // errorTips(err.msg)
       })
+    },
+    toTask(item){
+      console.log(item)
+      Toast.loading({
+        duration: 0, // 持续展示 toast
+        forbidClick: true,
+        loadingType: 'spinner',
+      });
+
+      const timer = setInterval(() => {
+        clearInterval(timer);
+        Toast.clear();
+
+        // sessionStorage.setItem('order',JSON.stringify(item))
+        setItem('order',item)
+        // this.$router.push('/deal')
+        this.$router.push({path:'/deal',query:{value:1}})
+      }, 1000);
     }
   },
 
@@ -188,7 +214,7 @@ export default {
     .card-item{
       width: 175px;
       margin-bottom: 10px;
-      height: 350px;
+      min-height: 350px;
       border-radius: 15px;
       background: #fff;
       position: relative;

@@ -47,7 +47,7 @@
               </div>
             </div>
             <p class="box-card" style="text-align: center">
-              <img :src="item.bannerUrl" alt="">
+              <img class="bannerImg" :src="item.bannerUrl" alt="">
             </p>
           </van-swipe-item>
         </van-swipe>
@@ -731,5 +731,10 @@ export default {
     .image{
       height: 16px;
     }
+
+  }
+  .bannerImg{
+    width: 175px;
+    height: 87px;
   }
 </style>
