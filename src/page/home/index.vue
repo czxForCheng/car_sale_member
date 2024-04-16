@@ -18,24 +18,14 @@
           <div class="home-center">
               <div class="card-template">
                   <div class="card-left">
-                    <p class="new">{{ $t('h.h001') }}</p>
-                    <p class="title">{{ $t('h.h002') }}</p>
-                    <p class="tips">{{ $t('h.h003') }}</p>
                     <el-carousel indicator-position="none" height="400px">
-                      <el-carousel-item>
-                        <img class="car" src="@/assets/images/car.png" alt="">
-                      </el-carousel-item>
-                      <el-carousel-item>
-                        <img class="car" src="@/assets/images/byd.png" alt="">
-                      </el-carousel-item>
-                      <el-carousel-item>
-                        <img class="car" src="@/assets/images/bydh.png" alt="">
-                      </el-carousel-item>
-                      <el-carousel-item>
-                        <img class="car" src="@/assets/images/dz.png" alt="">
+                      <el-carousel-item v-for="(item,index) in bannerArray" :key="index">
+                        <p class="new">{{ $t('h.h001') }}</p>
+                        <p class="title">{{item.title}}</p>
+                        <p class="tips">{{item.content}}</p>
+                        <img class="car" :src="item.bannerUrl" alt="">
                       </el-carousel-item>
                     </el-carousel>
-
                   </div>
                   <div class="card-left">
                     <div class="card">
@@ -156,7 +146,15 @@
 
 <script>
 import Headers from "@/page/components/Headers/index.vue";
-import {getAllUserLevel, getBannerList, HomeBannerImage, homeList, homepageText, pushProduct} from "@/api/apiFox";
+import {
+  bannerList,
+  getAllUserLevel,
+  getBannerList,
+  HomeBannerImage,
+  homeList,
+  homepageText,
+  pushProduct
+} from "@/api/apiFox";
 import {getItem, setItem} from "@/utils/auth";
 import {removeHtmlTags} from "@/utils";
 import {debounce} from "@/utils/evenNumbers";
@@ -185,6 +183,7 @@ export default {
       currentIndex: 0,
       autoPlayInterval: null,
       BannerImage:[],
+      bannerArray:[],
       category:[
         {id:1,name:'Sedans',icon:require('@/assets/images/1000.jpeg')},
         {id:2,name:'SUVS',icon:require('@/assets/images/1001.jpeg')},
@@ -278,6 +277,10 @@ export default {
       HomeBannerImage().then(res=>{
         console.log(res)
         this.BannerImage=res
+      }).catch(err=>{})
+
+      bannerList({bannerType:3}).then(res=>{
+        this.bannerArray=res
       }).catch(err=>{})
     },
     startBrushingOrders:debounce(function (){

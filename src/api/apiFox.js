@@ -337,4 +337,14 @@ export async function HomeBannerImage(){
 
     return res.data
 }
+// 小的banner图片
+export async function bannerList(data){
+    let res = await api({
+        method:'post',
+        url:`/h5Api/banner/bannerList`,
+        data
+    })
+
+    return res.data
+}
 

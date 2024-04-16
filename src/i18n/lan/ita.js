@@ -11,7 +11,7 @@ export const h = {
     h009: "Transazione completata",
     h010: "Importo visualizzato",
     h011: "Optimize Now",
-    h012: "Strumenti speciali",
+    h012: "SCEGLI IL TUO MODELLO DI AUTO ADATTO",
     h013: "Trova e ripara",
     h014: "Non sei sicuro di quello che vuoi? Rispondi ad alcune domande e trova quella che più ti si addice.",
     h015: "Compra la tua marca preferita",

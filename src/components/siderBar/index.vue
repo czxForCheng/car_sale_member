@@ -20,32 +20,6 @@
           <span class="custom-title"><img src="@/assets/images/icon/icon_h6.png" alt="">{{ $t('h.s003') }}</span>
         </template>
       </van-cell>
-      <van-cell :border="false" @click="stepNewRouter('/faqs',{status:1})" is-link>
-        <template #title>
-          <span class="custom-title"><img src="@/assets/images/icon/icon_cret.png" alt="">{{ $t('h.s004') }}</span>
-        </template>
-      </van-cell>
-      <van-cell :border="false" @click="stepNewRouter('/faqs',{status:2})" is-link>
-        <template #title>
-          <span class="custom-title"><img src="@/assets/images/icon/icon_tc.png" alt="">{{ $t('h.s005') }}</span>
-        </template>
-      </van-cell>
-      <van-cell :border="false" @click="stepNewRouter('/faqs',{status:3})" is-link>
-        <template #title>
-          <span class="custom-title"><img src="@/assets/images/icon/icon_faqs.png" alt="">{{ $t('h.s006') }}</span>
-        </template>
-      </van-cell>
-      <van-cell :border="false" @click="stepNewRouter('/faqs',{status:4})" is-link>
-        <template #title>
-          <span class="custom-title"><img src="@/assets/images/icon/icon_email.png" alt="">{{ $t('h.s007') }}</span>
-        </template>
-      </van-cell>
-      <van-cell :border="false" @click="stepNewRouter('/faqs',{status:5})" is-link>
-        <template #title>
-          <span class="custom-title"><img src="@/assets/images/icon/icon_desc.png" alt="">{{ $t('h.s008') }}</span>
-        </template>
-      </van-cell>
-      <van-divider />
       <van-cell @click="stepNewRouter('/task')" :border="false" is-link>
         <template #title>
           <span class="custom-title"><img src="@/assets/images/icon/icon_tast.png" alt="">{{ $t('h.s009') }}</span>
@@ -69,6 +43,33 @@
       <van-cell @click="stepNewRouter('/wallet')" :border="false" is-link>
         <template #title>
           <span class="custom-title"><img src="@/assets/images/icon/icon_wallet.png" alt="">{{ $t('h.s013') }}</span>
+        </template>
+      </van-cell>
+
+      <van-divider />
+      <van-cell :border="false" @click="stepNewRouter('/faqs',{status:1})" is-link>
+        <template #title>
+          <span class="custom-title"><img src="@/assets/images/icon/icon_cret.png" alt="">{{ $t('h.s004') }}</span>
+        </template>
+      </van-cell>
+      <van-cell :border="false" @click="stepNewRouter('/faqs',{status:2})" is-link>
+        <template #title>
+          <span class="custom-title"><img src="@/assets/images/icon/icon_tc.png" alt="">{{ $t('h.s005') }}</span>
+        </template>
+      </van-cell>
+      <van-cell :border="false" @click="stepNewRouter('/faqs',{status:3})" is-link>
+        <template #title>
+          <span class="custom-title"><img src="@/assets/images/icon/icon_faqs.png" alt="">{{ $t('h.s006') }}</span>
+        </template>
+      </van-cell>
+      <van-cell :border="false" @click="stepNewRouter('/faqs',{status:4})" is-link>
+        <template #title>
+          <span class="custom-title"><img src="@/assets/images/icon/icon_email.png" alt="">{{ $t('h.s007') }}</span>
+        </template>
+      </van-cell>
+      <van-cell :border="false" @click="stepNewRouter('/faqs',{status:5})" is-link>
+        <template #title>
+          <span class="custom-title"><img src="@/assets/images/icon/icon_desc.png" alt="">{{ $t('h.s008') }}</span>
         </template>
       </van-cell>
       <van-divider />

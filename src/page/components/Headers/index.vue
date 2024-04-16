@@ -185,7 +185,7 @@ export default {
   background: #000;
   display: flex;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   z-index: 999;
   top: 0;
 

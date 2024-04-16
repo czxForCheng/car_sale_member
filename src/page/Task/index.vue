@@ -7,21 +7,12 @@
 
         <div class="card-template">
           <div class="card-left">
-            <p class="new">{{ $t('h.h001') }}</p>
-            <p class="title">{{ $t('h.h002') }}</p>
-            <p class="tips">{{ $t('h.h003') }}</p>
             <el-carousel indicator-position="none" height="400px">
-              <el-carousel-item>
-                <img class="car" src="@/assets/images/car.png" alt="">
-              </el-carousel-item>
-              <el-carousel-item>
-                <img class="car" src="@/assets/images/byd.png" alt="">
-              </el-carousel-item>
-              <el-carousel-item>
-                <img class="car" src="@/assets/images/bydh.png" alt="">
-              </el-carousel-item>
-              <el-carousel-item>
-                <img class="car" src="@/assets/images/dz.png" alt="">
+              <el-carousel-item v-for="(item,index) in bannerArray" :key="index">
+                <p class="new">{{ $t('h.h001') }}</p>
+                <p class="title">{{item.title}}</p>
+                <p class="tips">{{item.content}}</p>
+                <img class="car" :src="item.bannerUrl" alt="">
               </el-carousel-item>
             </el-carousel>
 
@@ -91,7 +82,7 @@
 <script>
   import Headers from "@/page/components/Headers/index.vue";
   import Footer from "@/page/components/Footer/index.vue";
-  import {homepageText, pushProduct} from "@/api/apiFox";
+  import {bannerList, homepageText, pushProduct} from "@/api/apiFox";
   import {debounce} from "@/utils/evenNumbers";
   import {Toast} from "vant";
   import {getItem, setItem} from "@/utils/auth";
@@ -104,6 +95,7 @@
         webSite:'',
         userInfo:'',
         deal:'',
+        bannerArray:[],
         // 用户信息
         contentText:'',
       }
@@ -124,6 +116,9 @@
             let contentText=res.filter(values=>{return values.state === 1})
             this.contentText = contentText[0].content
           }
+        }).catch(err=>{})
+        bannerList({bannerType:3}).then(res=>{
+          this.bannerArray=res
         }).catch(err=>{})
       },
       startBrushingOrders:debounce(function (){

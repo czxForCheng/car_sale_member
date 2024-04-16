@@ -11,7 +11,7 @@ export const h = {
     h009: "transacción completada ",
     h010: "mostrar la cantidad o no ",
     h011: "optimización inmediata ",
-    h012: "herramientas destacadas ",
+    h012: "Elegir el modelo adecuado",
     h013: "encontrar una reparación ",
     h014: "¿No estás seguro de lo que quieres? Responda algunas preguntas y encuentre la que más le convenga",
     h015: "compra tus marcas favoritas ",

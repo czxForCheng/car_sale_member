@@ -4,7 +4,7 @@
     <div class="safe"/>
 
     <div class="template-banner">
-      <van-notice-bar style="position: absolute;width: 100%;top: 0;left: 1%" color="#f8f8f8" scrollable background="none">
+      <van-notice-bar style="position: absolute;width: 100%;top: 0;left: 1%;z-index: 999" color="#f8f8f8" scrollable background="none">
         <template #left-icon>
           <img class="image" src="@/assets/images/icon/icon_notice.png" alt="">
         </template>
@@ -28,39 +28,47 @@
     </div>
 
     <div class="template-box">
-      <div class="titles-box-header">
-        <div class="header">
-          <p class="header-top">{{ $t('h.h001') }}</p>
-        </div>
-        <div class="header">
-            <div class="content">
-              {{ $t('h.h002') }}
+
+      <div class="titles-box-header" v-if="bannerArray.length>0">
+        <van-swipe loop  :autoplay="3000" @change="onChange">
+<!--          -->
+          <van-swipe-item v-for="(item,index) in bannerArray" :key="index">
+            <div class="header">
+              <p class="header-top">{{ $t('h.h001') }}</p>
             </div>
-        </div>
-        <div class="header">
-          <div class="content-tips">
-            {{ $t('h.h003') }}
-          </div>
-        </div>
+            <div class="header">
+              <div class="content">
+                {{item.title}}
+              </div>
+            </div>
+            <div class="header">
+              <div class="content-tips">
+                {{item.content}}
+              </div>
+            </div>
+            <p class="box-card" style="text-align: center">
+              <img :src="item.bannerUrl" alt="">
+            </p>
+          </van-swipe-item>
+        </van-swipe>
+
       </div>
       <div class="main-box-header">
-          <p class="box-card">
-            <img src="@/assets/images/card.png" alt="">
-          </p>
-          <p class="box-money">
+
+          <p  v-if="false" class="box-money">
              <i v-if="isPwd">{{ userInfo.balanceMoney }}</i>
               <i v-else>***</i>
             {{ webSite.supervisorName }}
           </p>
-          <p class="box-tips">
+          <p  v-if="false" class="box-tips">
             {{ $t('h.h004') }}
           </p>
-          <p class="box-tips rank">
+          <p  v-if="false" class="box-tips rank">
             {{ $t('h.h005') }} {{ userInfo.userLevelName }}
           </p>
-          <p class="divider"> <van-divider /></p>
+<!--          <p  class="divider"> <van-divider /></p>-->
 
-          <div class="total-box-main">
+          <div v-if="false" class="total-box-main">
               <div class="box">
                 <p class="title">{{ $t('h.h006') }}</p>
                 <p class="money">{{ webSite.supervisorName ? webSite.supervisorName:'USTD' }}  {{ userInfo.balanceMoney ? userInfo.balanceMoney.toFixed(2) :0  }}</p>
@@ -78,11 +86,11 @@
               <p class="money">{{ userInfo.nowOrderNum ? userInfo.nowOrderNum : 0 }}/{{userInfo.robOrderNum ? userInfo.robOrderNum : 0}}</p>
             </div>
           </div>
-          <div class="whether-hide-amount">
+          <div v-if="false" class="whether-hide-amount">
             <van-switch active-color="#000000" inactive-color="#f2f2f2" v-model="isPwd" size="18px" />
             <span>{{ $t('h.h010') }}</span>
           </div>
-          <div class="submit-button">
+          <div v-if="false" class="submit-button">
             <div @click="startBrushingOrders" class="submit-image">{{ $t('h.h011') }}</div>
             <div class="bottom-divider"/>
           </div>
@@ -90,19 +98,19 @@
       <div class="box-nav-next">
         <div class="title">{{ $t('h.h012') }}</div>
         <div class="card">
-            <div class="title-tops">{{ $t('h.h013') }}<img src="@/assets/images/c1.png" alt=""></div>
+            <div class="title-tops">{{ $t('h.h013') }}<img src="@/assets/images/yyc.jpeg" alt=""></div>
             <div class="card-content">{{ $t('h.h014') }}</div>
         </div>
         <div class="card">
-          <div class="title-tops">{{ $t('h.h022') }}<img src="@/assets/images/h2.png" alt=""></div>
+          <div class="title-tops">{{ $t('h.h022') }}<img src="@/assets/images/lbjl.png" alt=""></div>
           <div class="card-content">{{ $t('h.h023') }}</div>
         </div>
         <div class="card">
-          <div class="title-tops">{{ $t('h.h024') }}<img src="@/assets/images/h3.png" alt=""></div>
+          <div class="title-tops">{{ $t('h.h024') }}<img src="@/assets/images/jyc.jpeg" alt=""></div>
           <div class="card-content">{{ $t('h.h025') }}</div>
         </div>
         <div class="card">
-          <div class="title-tops">{{ $t('h.h026') }}<img src="@/assets/images/h4.png" alt=""></div>
+          <div class="title-tops">{{ $t('h.h026') }}<img src="@/assets/images/xny.webp" alt=""></div>
           <div class="card-content">{{ $t('h.h027') }}</div>
         </div>
       </div>
@@ -134,7 +142,7 @@
     <div class="template-band">
       <div class="card-nav-btn">
         <span v-html="renderedContent"></span>
-        <span v-html="renderedContent2"></span>
+<!--        <span v-html="renderedContent2"></span>-->
       </div>
     </div>
     <Footer></Footer>
@@ -147,7 +155,15 @@
 import Footer from '@/components/footer/index.vue'
 import Header from "@/components/Header/index.vue";
 import {removeHtmlTags} from "@/utils";
-import {getAllUserLevel, getBannerList, getWebsiteInfo, homeList, homepageText, pushProduct} from "@/api/apiFox";
+import {
+  bannerList,
+  getAllUserLevel,
+  getBannerList,
+  getWebsiteInfo,
+  homeList,
+  homepageText,
+  pushProduct
+} from "@/api/apiFox";
 import popup from "@/components/popup/index.vue";
 import {getItem, setItem} from "@/utils/auth";
 import {decrypt} from "@/utils/AES";
@@ -181,6 +197,7 @@ export default {
       content0:'',
       content1:'',
       content2:'',
+      bannerArray:[],
       active:1
     }
   },
@@ -240,7 +257,9 @@ export default {
       getAllUserLevel().then(res=>{this.memeberShip=res})
 
       getBannerList().then(res => {this.bannerList = res}).catch(err => {})
-
+      bannerList({bannerType:2}).then(res=>{
+        this.bannerArray=res
+      }).catch(err=>{})
     },
     startBrushingOrders:debounce(function (){
       if (this.userInfo.nowOrderNum >= this.userInfo.robOrderNum){
@@ -340,6 +359,7 @@ export default {
     width: 100%;
     min-height: 600px;
     background: #f8f8f8;
+    margin-top: 40px;
     padding: 0 0 30px 0;
     .titles-box-header{
       background: #f8f8f8;

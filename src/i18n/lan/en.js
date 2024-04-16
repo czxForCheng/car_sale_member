@@ -11,7 +11,7 @@ export const h={
     h009:"Deals Completed",
     h010:"Is the amount displayed",
     h011:"Optimize Now",
-    h012:"Featured tools",
+    h012:"CHOOSE YOUR SUITABLE CAR MODEL",
     h013:"ENDLESS OFF ROAD DRIVING",
     h014:"Not sure what you want? Answer a few questions to find what fits you best.",
     h015:" Shop your favorite brand",

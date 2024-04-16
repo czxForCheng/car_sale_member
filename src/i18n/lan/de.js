@@ -11,7 +11,7 @@ export const h = {
     h009: "Transaktion abgeschlossen",
     h010: "Anzeigebetrag",
     h011: "Jetzt optimieren",
-    h012: "Spezialwerkzeuge",
+    h012: "Wählen Sie Ihr passendes Auto-Modell",
     h013: "Find and fix",
     h014: "Sind Sie sich nicht sicher, was Sie wollen? Beantworten Sie ein paar Fragen und finden Sie diejenige, die am besten zu Ihnen passt.",
     h015: "Kaufen Sie Ihre Lieblingsmarke",
