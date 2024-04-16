@@ -3,7 +3,7 @@
     <div class="template-header">
       <div class="icon-menu">
         <van-icon v-if="isShow" @click="openCurrent" name="wap-nav" />
-        <img :src="logo ? logo.websiteSmallLogo : null" alt="">
+        <img :src="logo ? logo.websiteBigLogo : null" alt="">
       </div>
       <div class="icon-language">
         <Language></Language>

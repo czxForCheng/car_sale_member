@@ -105,7 +105,8 @@
 
                 <div v-if="active===2" class="partners-list-parent">
                   <div class="card-nav">
-                    <img :src="content0" alt="">
+<!--                    <img :src="content0" alt="">-->
+                    <img :src="renderedContent2" alt="">
 
                   </div>
                 </div>
@@ -620,7 +621,7 @@ export default {
             overflow-x: scroll;
 
             img{
-              height: 40px;
+              height: 200px;
             }
             span{
               font-size: 14px;
