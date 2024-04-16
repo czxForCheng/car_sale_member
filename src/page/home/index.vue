@@ -619,9 +619,9 @@ export default {
           .card-nav{
             width: 100%;
             overflow-x: scroll;
-
+            text-align: center;
             img{
-              height: 200px;
+              height: auto;
             }
             span{
               font-size: 14px;

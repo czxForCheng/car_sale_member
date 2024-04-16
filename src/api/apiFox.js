@@ -342,7 +342,7 @@ export async function bannerList(data){
     let res = await api({
         method:'post',
         url:`/h5Api/banner/bannerList`,
-        data
+        data:data
     })
 
     return res.data
