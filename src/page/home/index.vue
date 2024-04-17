@@ -10,7 +10,9 @@
               <p class="titles">{{webSite.homeHeadText ? webSite.homeHeadText.title : ''}}</p>
               <p class="content">{{webSite.homeHeadText ? webSite.homeHeadText.introduce:'' }} </p>
             </div>
-            <img :src="item.bannerUrl" alt="">
+<!--            <el-image :src="src"></el-image>-->
+            <img class="images" :src="item.bannerUrl" alt="">
+<!--            <el-image class="images" src="http://8.210.20.168:210/api/uploads/image/20240416/6be59431-bee4-4c8a-a0e0-b4bea25cf39d.jpg" alt=""></el-image>-->
           </div>
         </el-carousel-item>
       </el-carousel>
@@ -88,12 +90,12 @@
                 </div>
               </div>
               <el-divider></el-divider>
-              <div class="titles-center">{{ $t('h.h015') }}</div>
+<!--              <div class="titles-center">{{ $t('h.h015') }}</div>-->
               <div class="title-list-card">
                 <div class="switch-nav">
                   <div class="switch">
-                    <div @click="active=1" class="not" :class="{'active':active===1}">{{ $t('h.h016') }}</div>
                     <div @click="active=2" class="not" :class="{'active':active===2}">{{ $t('h.h017') }}</div>
+                    <div @click="active=1" class="not" :class="{'active':active===1}">{{ $t('h.h016') }}</div>
                   </div>
                 </div>
                 <div v-if="active===1" class="partners-list">
@@ -102,12 +104,11 @@
                     <p>{{ item.lvName }}</p>
                   </div>
                 </div>
-
                 <div v-if="active===2" class="partners-list-parent">
                   <div class="card-nav">
 <!--                    <img :src="content0" alt="">-->
-                    <img :src="renderedContent2" alt="">
-
+<!--                    <img :src="renderedContent2" alt="">-->
+                        <span v-html="renderedContent2"></span>
                   </div>
                 </div>
               </div>
@@ -180,7 +181,7 @@ export default {
       content0:'',
       content1:'',
       content2:'',
-      active:1,
+      active:2,
       currentIndex: 0,
       autoPlayInterval: null,
       BannerImage:[],
@@ -208,10 +209,19 @@ export default {
       return modifiedContent;
     },
     renderedContent2() {
-      let modifiedContent = this.content2.replace(/<img(.*?)src="(.*?)"(.*?)>/g, (match, p1, p2, p3) => {
-        return `<img${p1}src="${p2}" style="width: 100% !important; height: 100%!important;">`;
-      });
-      return modifiedContent;
+      if (/video/.test(this.content2)){
+        let modifiedContent = this.content2.replace(/<video(.*?)src="(.*?)"(.*?)>/g, (match, p1, p2, p3) => {
+          return `<video${p1}src="${p2}" style="width: 100% !important; height: 100%!important;">`;
+        });
+        return modifiedContent;
+      }else if(/img/.test(this.content2)){
+        let modifiedContent = this.content2.replace(/<img(.*?)src="(.*?)"(.*?)>/g, (match, p1, p2, p3) => {
+          return `<img${p1}src="${p2}" style="width: 100% !important; height: 100%!important;">`;
+        });
+        return modifiedContent;
+      }else{
+        return this.content2;
+      }
     },
     currentOffset() {
       return -100 * this.currentIndex;
@@ -257,12 +267,13 @@ export default {
       }).catch(err=>{})
 
       homepageText().then(res=>{
-        console.log(res)
         if (res.length>0){
           this.content0=res[0].content
           this.parentList=res
-          this.content1=this.parentList[1].content
-          this.content2=this.parentList[2].content
+          let content1 = res.filter(value=> {return value.state===0})
+          this.content1=content1 ? content1[0].content:''
+          let content = res.filter(value=> {return value.state===3})
+          this.content2=content ? content[0].content:''
         }else{
           this.content0=''
           this.content1=''
@@ -338,9 +349,9 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    img{
-      width: 100%;
-      height: 600px;
+    .images{
+      //width: 100%;
+      //height: 600px;
       position: absolute;
       z-index: 0;
     }

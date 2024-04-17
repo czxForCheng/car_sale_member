@@ -16,7 +16,7 @@ export const h={
     h014:"Not sure what you want? Answer a few questions to find what fits you best.",
     h015:" Shop your favorite brand",
     h016:"Membership",
-    h017:"Partners",
+    h017:"off-road",
     h018:"Shop your favorite brand",
     h019:"Membership",
     h020:'LOCK THE DEALNOW BEFORE ITS TOO LATE',

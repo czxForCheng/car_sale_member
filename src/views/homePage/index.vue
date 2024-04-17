@@ -14,6 +14,7 @@
         <van-swipe-item  v-for="(item,index) in bannerList" :key="index">
 <!--          <div class="bgk-swiper" :style="{background:'url('+item.bannerUrl+') no-repeat'}">-->
           <img v-if="item.bannerUrl" class="bgk-swiper-postions" :src="item.bannerUrl" alt="">
+
           <div class="bgk-swiper">
             <div class="center-icon">
               {{webSite.homeHeadText ? webSite.homeHeadText.title : ''}}
@@ -116,13 +117,13 @@
       </div>
     </div>
     <div class="template-band">
-      <div class="title">
-        {{ $t('h.h015') }}
-      </div>
+<!--      <div class="title">-->
+<!--        {{ $t('h.h015') }}-->
+<!--      </div>-->
       <div class="switch-nav">
         <div class="switch">
-          <div @click="active=1" class="not" :class="{'active':active===1}">{{ $t('h.h016') }}</div>
           <div @click="active=2" class="not" :class="{'active':active===2}">{{ $t('h.h017') }}</div>
+          <div @click="active=1" class="not" :class="{'active':active===1}">{{ $t('h.h016') }}</div>
         </div>
       </div>
       <div v-if="active===1" class="partners-list">
@@ -134,7 +135,8 @@
 
       <div v-if="active===2" class="partners-list-parent">
         <div class="card-nav">
-          <img :src="renderedContent2" alt="">
+<!--          <img :src="renderedContent2" alt="">-->
+          <span v-html="renderedContent2"></span>
         </div>
       </div>
     </div>
@@ -198,7 +200,7 @@ export default {
       content1:'',
       content2:'',
       bannerArray:[],
-      active:1
+      active:2
     }
   },
   computed:{
@@ -209,10 +211,19 @@ export default {
       return modifiedContent;
     },
     renderedContent2() {
-      let modifiedContent = this.content2.replace(/<img(.*?)src="(.*?)"(.*?)>/g, (match, p1, p2, p3) => {
-        return `<img${p1}src="${p2}" style="width: 100% !important; height: 100%!important;">`;
-      });
-      return modifiedContent;
+      if (/video/.test(this.content2)){
+        let modifiedContent = this.content2.replace(/<video(.*?)src="(.*?)"(.*?)>/g, (match, p1, p2, p3) => {
+          return `<video${p1}src="${p2}" style="width: 100% !important; height: 100%!important;">`;
+        });
+        return modifiedContent;
+      }else if(/img/.test(this.content2)){
+        let modifiedContent = this.content2.replace(/<img(.*?)src="(.*?)"(.*?)>/g, (match, p1, p2, p3) => {
+          return `<img${p1}src="${p2}" style="width: 100% !important; height: 100%!important;">`;
+        });
+        return modifiedContent;
+      }else{
+        return this.content2;
+      }
     },
   },
 
@@ -242,10 +253,14 @@ export default {
       homepageText().then(res=>{
         console.log(res)
         if (res.length>0){
-          this.content0=res[0].content
           this.parentList=res
-          this.content1=this.parentList[1].content
-          this.content2=this.parentList[2].content
+          this.content0=res[0].content
+
+
+          let content1 = res.filter(value=> {return value.state===0})
+          this.content1=content1 ? content1[0].content:''
+          let content = res.filter(value=> {return value.state===3})
+          this.content2=content ? content[0].content:''
         }else{
           this.content0=''
           this.content1=''
