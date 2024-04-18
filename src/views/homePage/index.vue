@@ -53,9 +53,9 @@
         </van-swipe>
 
       </div>
-      <div class="main-box-header">
+      <div v-if="false"  class="main-box-header">
 
-          <p  v-if="false" class="box-money">
+          <p  class="box-money">
              <i v-if="isPwd">{{ userInfo.balanceMoney }}</i>
               <i v-else>***</i>
             {{ webSite.supervisorName }}
@@ -333,7 +333,7 @@ export default {
       .center-icon{
         position: relative;
         z-index: 10;
-        top: 150px;
+        top: 200px;
         text-align: center;
         width: 100%;
         padding: 3%;
@@ -376,18 +376,16 @@ export default {
     padding: 0 0 30px 0;
     .titles-box-header{
       background: #f8f8f8;
-      height: 280px;
+      min-height: 280px;
       width: 100%;
-      padding: 40px 0 0 0;
+      padding: 40px 3% 0 3%;
       box-sizing: border-box;
       .header{
         width: 100%;
-        min-height: 40px;
         display: flex;
         justify-content: center;
         .header-top{
           width: 50px;
-          height: 30px;
           background: #9ad3f3;
           border-radius: 8px;
           text-align: center;
@@ -418,15 +416,15 @@ export default {
     .main-box-header{
       width: 100%;
       min-height: 100px;
-      padding: 0 0 20px 0;
-      margin-top: -40px;
+      margin-bottom: 20px;
       .box-card{
         width: 100%;
         height: 100px;
         text-align: center;
         background: #fff;
+
         img{
-          height:auto;
+          width: 100%;
         }
       }
       .box-money{
@@ -747,6 +745,6 @@ export default {
 
   }
   .bannerImg{
-    height: 150px;
+    width: 100%;
   }
 </style>

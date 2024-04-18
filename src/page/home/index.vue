@@ -10,7 +10,7 @@
               <p class="titles">{{webSite.homeHeadText ? webSite.homeHeadText.title : ''}}</p>
               <p class="content">{{webSite.homeHeadText ? webSite.homeHeadText.introduce:'' }} </p>
             </div>
-<!--            <el-image :src="src"></el-image>-->
+
             <img v-if="item.bannerUrl" class="images" :src="item.bannerUrl" alt=""><!---->
 <!--            <img class="images" src="https://www.mercedes-benz.com.cn/content/dam/mb-cn/vehicles1/suv/g-class/g-class-pc/G-Class-Banner.png" alt="">-->
 
@@ -21,14 +21,17 @@
           <div class="home-center">
               <div class="card-template">
                   <div class="card-left">
-                    <el-carousel indicator-position="none" height="650px">
+                    <el-carousel  arrow="never" height="600px">
                       <el-carousel-item v-for="(item,index) in bannerArray" :key="index">
                         <div class="item-card-image">
                           <p class="new">{{ $t('h.h001') }}</p>
                           <p class="title">{{item.title}}</p>
                           <p class="tips">{{item.content}}</p>
-<!--                          <img class="car" src="https://www.mercedes-benz.com.cn/content/dam/mb-cn/vehicles1/suv/g-class/g-class-pc/G-Class-Banner.png" alt="">-->
-                          <el-image v-if="item.bannerUrl" class="car" :src="item.bannerUrl" alt=""></el-image>
+                          <div class="item-image-banner">
+                            <img v-if="item.bannerUrl" class="car" :src="item.bannerUrl" alt="">
+<!--                            <img class="car" src="https://www.mercedes-benz.com.cn/content/dam/mb-cn/vehicles1/suv/g-class/g-class-pc/G-Class-Banner.png" alt="">-->
+                          </div>
+
                         </div>
 
                       </el-carousel-item>
@@ -419,11 +422,21 @@ export default {
               text-align: left;
               color: #999;
             }
-            .car{
-              height: 261px;
-              width: 600px;
-              margin-top: 50px;
+            .item-image-banner{
+              width: 100%;
+              height: 400px;
+              object-fit: cover;
+              position: relative;
+              .car{
+                position:absolute;
+                left: 0;
+                object-fit: cover;
+                width: 100%;
+                max-height: 400px;
+                margin-top: 50px;
+              }
             }
+
           }
 
           .card{

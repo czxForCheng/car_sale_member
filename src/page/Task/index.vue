@@ -7,7 +7,7 @@
 
         <div class="card-template">
           <div class="card-left">
-            <el-carousel indicator-position="none" height="650px">
+            <el-carousel   arrow="never" height="600px">
               <el-carousel-item v-for="(item,index) in bannerArray" :key="index">
 
 
@@ -16,7 +16,10 @@
                   <p class="title">{{item.title}}</p>
                   <p class="tips">{{item.content}}</p>
 <!--                  <img class="car" src="@/assets/images/car.png" alt="">-->
-                  <el-image class="car" :src="item.bannerUrl" alt=""></el-image>
+                  <div class="item-image-banner">
+                    <img class="car" :src="item.bannerUrl" alt="">
+                  </div>
+
                 </div>
               </el-carousel-item>
             </el-carousel>
@@ -471,10 +474,18 @@
             text-align: left;
             color: #999;
           }
-          .car{
-            height: 261px;
-            width: 600px;
-            margin-top: 50px;
+          .item-image-banner{
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            position: relative;
+            .car{
+              position:absolute;
+              left: 0;
+              object-fit: cover;
+              width: 100%;
+              margin-top: 50px;
+            }
           }
         }
         .card{
