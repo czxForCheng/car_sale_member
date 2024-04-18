@@ -7,12 +7,17 @@
 
         <div class="card-template">
           <div class="card-left">
-            <el-carousel indicator-position="none" height="400px">
+            <el-carousel indicator-position="none" height="650px">
               <el-carousel-item v-for="(item,index) in bannerArray" :key="index">
-                <p class="new">{{ $t('h.h001') }}</p>
-                <p class="title">{{item.title}}</p>
-                <p class="tips">{{item.content}}</p>
-                <img class="car" :src="item.bannerUrl" alt="">
+
+
+                <div class="item-card-image">
+                  <p class="new">{{ $t('h.h001') }}</p>
+                  <p class="title">{{item.title}}</p>
+                  <p class="tips">{{item.content}}</p>
+<!--                  <img class="car" src="@/assets/images/car.png" alt="">-->
+                  <el-image class="car" :src="item.bannerUrl" alt=""></el-image>
+                </div>
               </el-carousel-item>
             </el-carousel>
 
@@ -438,34 +443,39 @@
     }
     .card-template{
       width: 100%;
-      height: 700px;
+      min-height: 700px;
       display: flex;
       .card-left{
         width: 50%;
-        height: 500px;
-        .new{
-          width: 50px;
-          height: 34px;
-          text-align: center;
-          line-height: 35px;
-          background: #9ad3f3;
-          border-radius: 10px;
-          font-size: 14px;
-        }
-        .title{
-          width: 100%;
-          margin-top: 20px;
-          font-size: 34px;
-        }
-        .tips{
-          width: 60%;
-          margin-top: 20px;
-          font-size: 18px;
-          color: #999;
-        }
-        .car{
-          height: 240px;
-          margin-top: 50px;
+        min-height: 500px;
+        .item-card-image{
+          .new{
+            width: 50px;
+            height: 34px;
+            text-align: center;
+            line-height: 35px;
+            background: #9ad3f3;
+            border-radius: 10px;
+            font-size: 14px;
+          }
+          .title{
+            width: 100%;
+            margin-top: 20px;
+            font-size: 34px;
+            text-align: left;
+          }
+          .tips{
+            width: 60%;
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: left;
+            color: #999;
+          }
+          .car{
+            height: 261px;
+            width: 600px;
+            margin-top: 50px;
+          }
         }
         .card{
           margin-top: 40px;

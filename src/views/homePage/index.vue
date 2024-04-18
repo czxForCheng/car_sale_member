@@ -4,7 +4,7 @@
     <div class="safe"/>
 
     <div class="template-banner">
-      <van-notice-bar style="position: absolute;width: 100%;top: 0;left: 1%;z-index: 999" color="#f8f8f8" scrollable background="none">
+      <van-notice-bar style="position: absolute;width: 100%;top: 0;left: 1%;z-index: 50" color="#f8f8f8" scrollable background="none">
         <template #left-icon>
           <img class="image" src="@/assets/images/icon/icon_notice.png" alt="">
         </template>
@@ -12,10 +12,8 @@
       </van-notice-bar>
       <van-swipe loop :autoplay="3000" @change="onChange">
         <van-swipe-item  v-for="(item,index) in bannerList" :key="index">
-<!--          <div class="bgk-swiper" :style="{background:'url('+item.bannerUrl+') no-repeat'}">-->
-          <img v-if="item.bannerUrl" class="bgk-swiper-postions" :src="item.bannerUrl" alt="">
-
-          <div class="bgk-swiper">
+         <div class="bgk-swiper">
+            <img v-if="item.bannerUrl" class="bgk-swiper-postions" :src="item.bannerUrl" alt="">
             <div class="center-icon">
               {{webSite.homeHeadText ? webSite.homeHeadText.title : ''}}
               <p>{{webSite.homeHeadText ? webSite.homeHeadText.introduce:'' }}</p>
@@ -32,7 +30,6 @@
 
       <div class="titles-box-header" v-if="bannerArray.length>0">
         <van-swipe loop  :autoplay="3000" @change="onChange">
-<!--          -->
           <van-swipe-item v-for="(item,index) in bannerArray" :key="index">
             <div class="header">
               <p class="header-top">{{ $t('h.h001') }}</p>
@@ -48,7 +45,9 @@
               </div>
             </div>
             <p class="box-card" style="text-align: center">
-              <img class="bannerImg" :src="item.bannerUrl" alt="">
+              <el-image class="bannerImg" :src="item.bannerUrl" alt=""></el-image>
+<!--              <el-image class="bannerImg" src="https://www.mercedes-benz.com.cn/content/dam/mb-cn/vehicles1/suv/g-class/g-class-pc/G-Class-Banner.png" alt=""></el-image>-->
+<!--              <el-image class="bannerImg" src="https://www.mercedes-benz.com.cn/content/dam/mb-cn/vehicles1/suv/g-class/g-class-pc/G-Class-Banner.png" alt=""></el-image>-->
             </p>
           </van-swipe-item>
         </van-swipe>
@@ -67,7 +66,6 @@
           <p  v-if="false" class="box-tips rank">
             {{ $t('h.h005') }} {{ userInfo.userLevelName }}
           </p>
-<!--          <p  class="divider"> <van-divider /></p>-->
 
           <div v-if="false" class="total-box-main">
               <div class="box">
@@ -135,7 +133,6 @@
 
       <div v-if="active===2" class="partners-list-parent">
         <div class="card-nav">
-<!--          <img :src="renderedContent2" alt="">-->
           <span v-html="renderedContent2"></span>
         </div>
       </div>
@@ -144,7 +141,7 @@
     <div class="template-band">
       <div class="card-nav-btn">
         <span v-html="renderedContent"></span>
-<!--        <span v-html="renderedContent2"></span>-->
+
       </div>
     </div>
     <Footer></Footer>
@@ -211,19 +208,9 @@ export default {
       return modifiedContent;
     },
     renderedContent2() {
-      if (/video/.test(this.content2)){
-        let modifiedContent = this.content2.replace(/<video(.*?)src="(.*?)"(.*?)>/g, (match, p1, p2, p3) => {
-          return `<video${p1}src="${p2}" style="width: 100% !important; height: 100%!important;">`;
-        });
-        return modifiedContent;
-      }else if(/img/.test(this.content2)){
-        let modifiedContent = this.content2.replace(/<img(.*?)src="(.*?)"(.*?)>/g, (match, p1, p2, p3) => {
-          return `<img${p1}src="${p2}" style="width: 100% !important; height: 100%!important;">`;
-        });
-        return modifiedContent;
-      }else{
-        return this.content2;
-      }
+      let content = this.content2.replace('controls="true"', 'autoplay muted loop')
+      console.log(content)
+      return content
     },
   },
 
@@ -319,7 +306,6 @@ export default {
 
   .template-banner{
     width: 100%;
-    height: 540px;
     //background: url("@/assets/images/1.jpeg") no-repeat 100% 100%;
     background-position:center center;
     background-size: cover;
@@ -327,21 +313,27 @@ export default {
     justify-content: center;
     align-items: center;
     position: relative;
-    .bgk-swiper-postions{
-      position: absolute;
-      width: 100%;
-      height: 540px;
-      z-index: 0;
-    }
     .bgk-swiper{
       width: 100%;
-      height: 540px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      .center-icon{
+      height: 95vh;
+      //display: flex;
+      //justify-content: center;
+      //align-items: center;
+      //position: relative;
+      //height: auto;
 
+      .bgk-swiper-postions{
+        position: absolute;
+        width: 100%;
+        left: 0;
+        object-fit: cover;
+        z-index: 0;
+        height: 100%;
+      }
+      .center-icon{
+        position: relative;
+        z-index: 10;
+        top: 150px;
         text-align: center;
         width: 100%;
         padding: 3%;
@@ -356,25 +348,31 @@ export default {
           line-height: 24px;
         }
       }
+      .button-next{
+        width: 100%;
+        height: 20px;
+        bottom: 30px;
+        position: absolute;
+        color: #fff;
+        font-size: 14px;
+        text-align: center;
+      }
     }
-    .button-next{
-      width: 100%;
-      height: 20px;
-      bottom: 30px;
-      position: absolute;
-      color: #fff;
-      font-size: 14px;
-      text-align: center;
-    }
+
   }
   .safe{
     width: 100%;height: 60px;
+  }
+  .image-slot{
+    width: 100%;
+    height: 100vh;
+    background: #333;
   }
   .template-box{
     width: 100%;
     min-height: 600px;
     background: #f8f8f8;
-    margin-top: 40px;
+    //margin-top: 40px;
     padding: 0 0 30px 0;
     .titles-box-header{
       background: #f8f8f8;
@@ -428,7 +426,7 @@ export default {
         text-align: center;
         background: #fff;
         img{
-          height: 100px;
+          height:auto;
         }
       }
       .box-money{
@@ -749,7 +747,6 @@ export default {
 
   }
   .bannerImg{
-    width: 175px;
-    height: 87px;
+    height: 150px;
   }
 </style>

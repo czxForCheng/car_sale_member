@@ -3,16 +3,17 @@
     <Headers></Headers>
     <div class="safe"/>
     <div class="home">
-      <el-carousel height="600px" indicator-position="none" arrow="never">
+      <el-carousel height="100vh" arrow="never">
         <el-carousel-item v-for="(item,index) in BannerImage" :key="index">
-          <div class="home-swiper">
+          <div class="home-swiper" >
             <div class="center">
               <p class="titles">{{webSite.homeHeadText ? webSite.homeHeadText.title : ''}}</p>
               <p class="content">{{webSite.homeHeadText ? webSite.homeHeadText.introduce:'' }} </p>
             </div>
 <!--            <el-image :src="src"></el-image>-->
-            <img class="images" :src="item.bannerUrl" alt="">
-<!--            <el-image class="images" src="http://8.210.20.168:210/api/uploads/image/20240416/6be59431-bee4-4c8a-a0e0-b4bea25cf39d.jpg" alt=""></el-image>-->
+            <img v-if="item.bannerUrl" class="images" :src="item.bannerUrl" alt=""><!---->
+<!--            <img class="images" src="https://www.mercedes-benz.com.cn/content/dam/mb-cn/vehicles1/suv/g-class/g-class-pc/G-Class-Banner.png" alt="">-->
+
           </div>
         </el-carousel-item>
       </el-carousel>
@@ -20,12 +21,16 @@
           <div class="home-center">
               <div class="card-template">
                   <div class="card-left">
-                    <el-carousel indicator-position="none" height="400px">
+                    <el-carousel indicator-position="none" height="650px">
                       <el-carousel-item v-for="(item,index) in bannerArray" :key="index">
-                        <p class="new">{{ $t('h.h001') }}</p>
-                        <p class="title">{{item.title}}</p>
-                        <p class="tips">{{item.content}}</p>
-                        <img class="car" :src="item.bannerUrl" alt="">
+                        <div class="item-card-image">
+                          <p class="new">{{ $t('h.h001') }}</p>
+                          <p class="title">{{item.title}}</p>
+                          <p class="tips">{{item.content}}</p>
+<!--                          <img class="car" src="https://www.mercedes-benz.com.cn/content/dam/mb-cn/vehicles1/suv/g-class/g-class-pc/G-Class-Banner.png" alt="">-->
+                          <el-image v-if="item.bannerUrl" class="car" :src="item.bannerUrl" alt=""></el-image>
+                        </div>
+
                       </el-carousel-item>
                     </el-carousel>
                   </div>
@@ -106,8 +111,7 @@
                 </div>
                 <div v-if="active===2" class="partners-list-parent">
                   <div class="card-nav">
-<!--                    <img :src="content0" alt="">-->
-<!--                    <img :src="renderedContent2" alt="">-->
+
                         <span v-html="renderedContent2"></span>
                   </div>
                 </div>
@@ -122,8 +126,7 @@
                     <div class="ks-item-image" v-for="(item,index) in category" :key="index">
                       <div class="ks-item">
                         <div class="item-image">
-                          <img :src="item.icon"
-                               alt="">
+                          <img :src="item.icon" alt="">
                         </div>
                         <div class="item-nav">{{item.name}}</div>
                       </div>
@@ -209,19 +212,9 @@ export default {
       return modifiedContent;
     },
     renderedContent2() {
-      if (/video/.test(this.content2)){
-        let modifiedContent = this.content2.replace(/<video(.*?)src="(.*?)"(.*?)>/g, (match, p1, p2, p3) => {
-          return `<video${p1}src="${p2}" style="width: 100% !important; height: 100%!important;">`;
-        });
-        return modifiedContent;
-      }else if(/img/.test(this.content2)){
-        let modifiedContent = this.content2.replace(/<img(.*?)src="(.*?)"(.*?)>/g, (match, p1, p2, p3) => {
-          return `<img${p1}src="${p2}" style="width: 100% !important; height: 100%!important;">`;
-        });
-        return modifiedContent;
-      }else{
-        return this.content2;
-      }
+      let content = this.content2.replace('controls="true"', 'autoplay muted loop')
+      console.log(content)
+      return content
     },
     currentOffset() {
       return -100 * this.currentIndex;
@@ -273,6 +266,7 @@ export default {
           let content1 = res.filter(value=> {return value.state===0})
           this.content1=content1 ? content1[0].content:''
           let content = res.filter(value=> {return value.state===3})
+          console.log(content)
           this.content2=content ? content[0].content:''
         }else{
           this.content0=''
@@ -343,18 +337,27 @@ export default {
 }
 .home{
   width: 100%;
+  min-height: 100vh;
   .home-swiper{
     width: 100%;
-    height: 600px;
+    height: 100vh;
     display: flex;
     justify-content: center;
+    background-repeat: no-repeat;
+
+    background-position:center;
+    background-size: cover;
     align-items: center;
     .images{
-      //width: 100%;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
       //height: 600px;
       position: absolute;
+      left: 0;
       z-index: 0;
     }
+
     .center{
       width: 900px;
 
@@ -387,35 +390,42 @@ export default {
       margin-top: 30px;
       .card-template{
         width: 100%;
-        height: 700px;
+        min-height: 700px;
         display: flex;
         .card-left{
           width: 50%;
-          height: 500px;
-          .new{
-            width: 50px;
-            height: 34px;
-            text-align: center;
-            line-height: 35px;
-            background: #9ad3f3;
-            border-radius: 10px;
-            font-size: 14px;
+          min-height: 500px;
+          text-align: center;
+          .item-card-image{
+            .new{
+              width: 50px;
+              height: 34px;
+              text-align: center;
+              line-height: 35px;
+              background: #9ad3f3;
+              border-radius: 10px;
+              font-size: 14px;
+            }
+            .title{
+              width: 100%;
+              margin-top: 20px;
+              font-size: 34px;
+              text-align: left;
+            }
+            .tips{
+              width: 60%;
+              margin-top: 20px;
+              font-size: 18px;
+              text-align: left;
+              color: #999;
+            }
+            .car{
+              height: 261px;
+              width: 600px;
+              margin-top: 50px;
+            }
           }
-          .title{
-            width: 100%;
-            margin-top: 20px;
-            font-size: 34px;
-          }
-          .tips{
-            width: 60%;
-            margin-top: 20px;
-            font-size: 18px;
-            color: #999;
-          }
-          .car{
-            height: 240px;
-            margin-top: 50px;
-          }
+
           .card{
             margin-top: 40px;
             width: 600px;

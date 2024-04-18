@@ -8,7 +8,9 @@ html {
     background: #171717;
 }
 
-
+video{
+    width: 100% !important;
+}
 
 body,
 div,
