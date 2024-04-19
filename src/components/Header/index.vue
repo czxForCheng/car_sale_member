@@ -3,7 +3,9 @@
     <div class="template-header">
       <div class="icon-menu">
         <van-icon v-if="isShow" @click="openCurrent" name="wap-nav" />
-        <img :src="logo ? logo.websiteBigLogo : null" alt="">
+        <img v-if="isPath===0" :src="logo ? logo.websiteBigLogo : null" alt="">
+        <img v-else-if="isPath===1" :src="logo ? logo.loginLogo : null" alt="">
+        <img v-else-if="isPath===2" :src="logo ? logo.registrationLogo : null" alt="">
       </div>
       <div class="icon-language">
         <Language></Language>
@@ -24,6 +26,7 @@ export default {
     return{
       isSider:false,//是否打开左侧带单
       isShow:true,
+      isPath:0,
       logo:''
     }
   },
@@ -38,7 +41,8 @@ export default {
     },
   },
   mounted() {
-    /login|reg/.test(this.$route.path) ? this.isShow=false :this.isShow=true
+    /login|reg/.test(this.$route.path) ? this.isShow=false :this.isShow=true;
+    /login/.test(this.$route.path) ? this.isPath=1 : /reg/.test(this.$route.path) ? this.isPath=2 : this.isPath=0;
     this.logo=getItem('website')
   },
   watch: {

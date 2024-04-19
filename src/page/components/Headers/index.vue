@@ -1,7 +1,9 @@
 <template>
   <div class="header-index-style">
     <div class="header-center">
-      <img @click="stepNewRouter('/')" class="logo" :src="logo ? logo.websiteBigLogo : null" alt="">
+      <img v-if="isPath===0" @click="stepNewRouter('/')" class="logo" :src="logo ? logo.websiteBigLogo : null" alt="">
+      <img v-else-if="isPath===1" @click="stepNewRouter('/')" class="logo" :src="logo ? logo.loginLogo : null" alt="">
+      <img v-else-if="isPath===2" @click="stepNewRouter('/')" class="logo" :src="logo ? logo.registrationLogo : null" alt="">
       <div  class="center-header">
         <div v-if="isShow" class="btn-nav-list">
           <div class="item">
@@ -123,6 +125,7 @@ export default {
       activeName: '2',
       base:'',
       isShow:true,
+      isPath:0,
       logo:''
     };
   },
@@ -161,8 +164,9 @@ export default {
       this.base=JSON.parse(decrypt(this.$store.state.User))
       console.log(this.base)
     }
-    /login|reg/.test(this.$route.path) ? this.isShow=false :this.isShow=true
-    this.logo=getItem('website')
+    /login|reg/.test(this.$route.path) ? this.isShow=false :this.isShow=true;
+    /login/.test(this.$route.path) ? this.isPath=1 : /reg/.test(this.$route.path) ? this.isPath=2 : this.isPath=0;
+        this.logo=getItem('website')
   },
   watch: {
     '$route'(to,from){

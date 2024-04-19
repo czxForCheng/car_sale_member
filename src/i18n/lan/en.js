@@ -151,5 +151,5 @@ export const h={
     A0013:'Security',
     A0014:' Please check whether the wallet address is correct, update the wallet address needs to contact the administrator ',
     A0015:' The old password is invalid after password reset, please remember the password ',
-    A0016:'Top tier cars by type'
+    A0016:'Top-rated cars by type'
 }

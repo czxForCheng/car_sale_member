@@ -5,7 +5,7 @@
     <div class="deal-home"
          v-loading="loading"
          :element-loading-text="loadingText"
-         element-loading-background="rgba(0, 0, 0, 0.3)"
+         element-loading-background="rgba(0, 0, 0, 0)"
     >
       <img :src="form.productImage" alt="">
       <div class="product">
