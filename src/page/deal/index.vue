@@ -74,7 +74,7 @@ export default {
             Toast(this.$t('h.R022'))
             this.$router.push('/task')
             removeItem('order')
-          }, 5000)
+          }, 3000)
 
         }).catch(err => {
           this.$router.push('/order')
@@ -93,25 +93,32 @@ export default {
           productPrice: this.order.productPrice,
           productImage: this.order.productImage
         }
-        payOrderPrice(data).then(res => {
           setTimeout(() => {
             this.loading = false
             Toast.success(this.$t('h.R022'))
             this.$router.push('/task')
             removeItem('order')
-          }, 5000)
-        }).catch(err => {
-          this.loading = false
-          const timer = setInterval(() => {
-            clearInterval(timer);
-            Toast.clear();
-            if (err.code !== 300) {
-              this.$router.push('/order')
-            } else {
-              this.$router.push('/task')
-            }
-          }, 2000);
-        })
+          }, 3000)
+
+        // payOrderPrice(data).then(res => {
+        //   setTimeout(() => {
+        //     this.loading = false
+        //     Toast.success(this.$t('h.R022'))
+        //     this.$router.push('/task')
+        //     removeItem('order')
+        //   }, 3000)
+        // }).catch(err => {
+        //   this.loading = false
+        //   const timer = setInterval(() => {
+        //     clearInterval(timer);
+        //     Toast.clear();
+        //     if (err.code !== 300) {
+        //       this.$router.push('/order')
+        //     } else {
+        //       this.$router.push('/task')
+        //     }
+        //   }, 2000);
+        // })
       }
     }, 600),
   },
